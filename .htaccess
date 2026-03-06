@@ -18,5 +18,5 @@ RewriteCond %{REQUEST_URI} !^/admin/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# /qr/SHORTCODE → redirect.php?code=SHORTCODE
-RewriteRule ^qr/([a-zA-Z0-9_-]+)$ redirect.php?code=$1 [L,QSA]
+# /SHORTCODE → redirect.php?code=SHORTCODE
+RewriteRule ^([a-zA-Z0-9_-]+)$ redirect.php?code=$1 [L,QSA]

@@ -205,7 +205,7 @@ requireLogin();
                             :disabled="editMode"
                             class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                             placeholder="auto-generiert wenn leer"
-                            pattern="[a-zA-Z0-9-_]+"
+                            pattern="[a-zA-Z0-9_-]+"
                         >
                     </div>
                     <p class="mt-1 text-sm text-gray-500">Nur Buchstaben, Zahlen, Bindestriche und Unterstriche</p>
@@ -296,7 +296,7 @@ requireLogin();
                     this.qrCodes.forEach(qr => {
                         const canvas = document.getElementById('qr-' + qr.id);
                         if (canvas) {
-                            const url = '<?php echo BASE_URL; ?>/redirect.php?code=' + qr.shortcode;
+                            const url = '<?php echo BASE_URL; ?>/' + qr.shortcode;
                             QRCode.toCanvas(canvas, url, {
                                 width: 192,
                                 margin: 2,
