@@ -277,11 +277,12 @@ requireLogin();
                         this.loading = true;
                         const response = await fetch('api.php?action=list');
                         const result = await response.json();
-                        
+
                         if (result.success) {
                             this.qrCodes = result.data;
-                            // QR Codes nach kurzer Verzögerung rendern
-                            setTimeout(() => this.renderAllQRCodes(), 100);
+                            this.loading = false;
+                            await this.$nextTick();
+                            this.renderAllQRCodes();
                         }
                     } catch (error) {
                         console.error('Fehler beim Laden:', error);
