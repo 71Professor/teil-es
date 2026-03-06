@@ -1,0 +1,20 @@
+# QR Code Manager - URL Rewriting
+# Für schöne URLs wie /qr/abc123
+
+RewriteEngine On
+RewriteBase /qr-dynamisch/
+
+# Admin-Bereich ausschließen
+RewriteCond %{REQUEST_URI} !^/qr-dynamisch/admin/
+RewriteCond %{REQUEST_URI} !^/qr-dynamisch/assets/
+
+# Existierende Dateien und Ordner nicht umleiten
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Alle anderen Requests zu redirect.php
+RewriteRule ^qr/([a-zA-Z0-9-_]+)$ redirect.php?code=$1 [L,QSA]
+
+# Optionaler HTTPS-Redirect (auskommentiert lassen wenn kein SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
