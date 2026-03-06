@@ -13,6 +13,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     Deny from all
 </Files>
 
+# /qr/SHORTCODE → /SHORTCODE (Backwards-Kompatibilität für alte QR Codes)
+RewriteRule ^qr/([a-zA-Z0-9_-]+)/?$ /$1 [L,R=301]
+
 # Admin-Bereich und existierende Dateien/Ordner nicht umschreiben
 RewriteCond %{REQUEST_URI} !^/admin/
 RewriteCond %{REQUEST_FILENAME} !-f
