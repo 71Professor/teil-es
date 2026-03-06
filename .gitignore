@@ -1,0 +1,12 @@
+# Zugangsdaten – niemals committen!
+.env
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
