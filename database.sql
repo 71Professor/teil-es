@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `qr_codes` (
   `ziel_url` text NOT NULL,
   `titel` varchar(255) DEFAULT NULL,
   `beschreibung` text DEFAULT NULL,
+  `farbe` varchar(7) DEFAULT '#4F46E5',
   `aktiv` tinyint(1) DEFAULT 1,
   `scans` int(11) DEFAULT 0,
   `erstellt_am` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -25,6 +26,9 @@ CREATE TABLE IF NOT EXISTS `qr_codes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `shortcode` (`shortcode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Migration: Farbe-Spalte zu bestehenden Installationen hinzufügen
+-- ALTER TABLE `qr_codes` ADD COLUMN IF NOT EXISTS `farbe` varchar(7) DEFAULT '#4F46E5';
 
 CREATE TABLE IF NOT EXISTS `qr_scans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

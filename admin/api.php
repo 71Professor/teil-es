@@ -36,12 +36,13 @@ try {
                 $data['shortcode'] = substr(md5(uniqid(rand(), true)), 0, 5);
             }
             
-            $stmt = $db->prepare("INSERT INTO qr_codes (shortcode, ziel_url, titel, beschreibung) VALUES (?, ?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO qr_codes (shortcode, ziel_url, titel, beschreibung, farbe) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['shortcode'],
                 $data['ziel_url'],
                 $data['titel'] ?? '',
-                $data['beschreibung'] ?? ''
+                $data['beschreibung'] ?? '',
+                $data['farbe'] ?? '#4F46E5'
             ]);
             
             $newId = $db->lastInsertId();
@@ -57,11 +58,12 @@ try {
             $data = json_decode(file_get_contents('php://input'), true);
             $id = $data['id'] ?? 0;
             
-            $stmt = $db->prepare("UPDATE qr_codes SET ziel_url = ?, titel = ?, beschreibung = ? WHERE id = ?");
+            $stmt = $db->prepare("UPDATE qr_codes SET ziel_url = ?, titel = ?, beschreibung = ?, farbe = ? WHERE id = ?");
             $stmt->execute([
                 $data['ziel_url'],
                 $data['titel'] ?? '',
                 $data['beschreibung'] ?? '',
+                $data['farbe'] ?? '#4F46E5',
                 $id
             ]);
             
