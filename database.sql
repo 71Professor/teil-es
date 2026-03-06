@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `qr_codes` (
   `beschreibung` text DEFAULT NULL,
   `farbe` varchar(7) DEFAULT '#4F46E5',
   `aktiv` tinyint(1) DEFAULT 1,
+  `ablaufdatum` date DEFAULT NULL,
   `scans` int(11) DEFAULT 0,
   `erstellt_am` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `aktualisiert_am` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -29,6 +30,9 @@ CREATE TABLE IF NOT EXISTS `qr_codes` (
 
 -- Migration: Farbe-Spalte zu bestehenden Installationen hinzufügen
 -- ALTER TABLE `qr_codes` ADD COLUMN IF NOT EXISTS `farbe` varchar(7) DEFAULT '#4F46E5';
+
+-- Migration: Ablaufdatum-Spalte zu bestehenden Installationen hinzufügen
+-- ALTER TABLE `qr_codes` ADD COLUMN IF NOT EXISTS `ablaufdatum` date DEFAULT NULL;
 
 CREATE TABLE IF NOT EXISTS `qr_scans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
