@@ -33,7 +33,7 @@ try {
             
             // Shortcode generieren falls leer
             if (empty($data['shortcode'])) {
-                $data['shortcode'] = substr(md5(uniqid(rand(), true)), 0, 8);
+                $data['shortcode'] = substr(md5(uniqid(rand(), true)), 0, 5);
             }
             
             $stmt = $db->prepare("INSERT INTO qr_codes (shortcode, ziel_url, titel, beschreibung) VALUES (?, ?, ?, ?)");
