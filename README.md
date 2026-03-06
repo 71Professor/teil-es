@@ -4,7 +4,7 @@ Ein modernes, benutzerfreundliches Tool zur Verwaltung dynamischer QR Codes auf 
 
 ## 🎯 Was macht dieses Tool?
 
-- Erstelle QR Codes, die auf deine Domain verweisen (z.B. `https://deine-domain.de/qr/abc123`)
+- Erstelle QR Codes, die auf deine Domain verweisen (z.B. `https://deine-domain.de/abc123`)
 - Ändere jederzeit das Ziel, wohin der Code weiterleitet - **ohne den QR Code neu drucken zu müssen**
 - Modernes Admin-Interface mit Alpine.js + Tailwind CSS
 - Tracking: Sieh wie oft deine Codes gescannt wurden
@@ -98,7 +98,7 @@ RewriteBase /dein-ordner-name/
 
 - Klicke auf **Download** um den QR Code als PNG zu speichern
 - Drucke ihn aus, füge ihn in Dokumente ein, etc.
-- Der Code verweist auf: `https://deine-domain.de/qr/abc123`
+- Der Code verweist auf: `https://deine-domain.de/abc123`
 
 ### Ziel ändern
 
