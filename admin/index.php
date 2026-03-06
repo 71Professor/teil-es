@@ -76,10 +76,10 @@ requireLogin();
                                 <h3 class="text-lg font-bold text-gray-900" x-text="qr.titel || 'Ohne Titel'"></h3>
                                 <p class="text-sm text-gray-500 font-mono" x-text="'/' + qr.shortcode"></p>
                             </div>
-                            <span 
+                            <span
                                 class="px-3 py-1 text-xs font-semibold rounded-full"
-                                :class="qr.aktiv ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'"
-                                x-text="qr.aktiv ? 'Aktiv' : 'Inaktiv'"
+                                :class="isExpired(qr) ? 'bg-orange-100 text-orange-800' : (qr.aktiv ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800')"
+                                x-text="isExpired(qr) ? 'Abgelaufen' : (qr.aktiv ? 'Aktiv' : 'Inaktiv')"
                             ></span>
                         </div>
                         
@@ -105,6 +105,14 @@ requireLogin();
                                 </svg>
                                 <span x-text="formatDate(qr.erstellt_am)"></span>
                             </div>
+                        </div>
+
+                        <!-- Ablaufdatum -->
+                        <div x-show="qr.ablaufdatum" class="mb-4 flex items-center space-x-1 text-sm" :class="isExpired(qr) ? 'text-orange-600' : 'text-gray-500'">
+                            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span x-text="isExpired(qr) ? 'Abgelaufen am ' + formatDate(qr.ablaufdatum) : 'Gültig bis ' + formatDate(qr.ablaufdatum)"></span>
                         </div>
                         
                         <!-- Actions -->
@@ -225,6 +233,16 @@ requireLogin();
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Ablaufdatum (optional)</label>
+                    <input
+                        type="date"
+                        x-model="form.ablaufdatum"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    >
+                    <p class="mt-1 text-sm text-gray-500">Nach diesem Datum ist der QR Code nicht mehr gültig. Leer lassen für unbegrenzte Gültigkeit.</p>
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-3">QR Code Farbe</label>
                     <div class="flex space-x-3">
                         <template x-for="color in qrColors" :key="color.value">
@@ -281,7 +299,8 @@ requireLogin();
                     shortcode: '',
                     ziel_url: '',
                     beschreibung: '',
-                    farbe: '#4F46E5'
+                    farbe: '#4F46E5',
+                    ablaufdatum: ''
                 },
                 
                 async init() {
@@ -332,7 +351,8 @@ requireLogin();
                         shortcode: '',
                         ziel_url: '',
                         beschreibung: '',
-                        farbe: '#4F46E5'
+                        farbe: '#4F46E5',
+                        ablaufdatum: ''
                     };
                     this.editMode = false;
                 },
@@ -344,7 +364,8 @@ requireLogin();
                         shortcode: qr.shortcode,
                         ziel_url: qr.ziel_url,
                         beschreibung: qr.beschreibung,
-                        farbe: qr.farbe || '#4F46E5'
+                        farbe: qr.farbe || '#4F46E5',
+                        ablaufdatum: qr.ablaufdatum || ''
                     };
                     this.editMode = true;
                     this.showModal = true;
@@ -426,11 +447,16 @@ requireLogin();
                 
                 formatDate(dateString) {
                     const date = new Date(dateString);
-                    return date.toLocaleDateString('de-DE', { 
-                        day: '2-digit', 
-                        month: '2-digit', 
-                        year: 'numeric' 
+                    return date.toLocaleDateString('de-DE', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
                     });
+                },
+
+                isExpired(qr) {
+                    if (!qr.ablaufdatum) return false;
+                    return qr.ablaufdatum < new Date().toISOString().split('T')[0];
                 }
             }
         }

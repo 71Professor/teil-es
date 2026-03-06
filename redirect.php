@@ -40,6 +40,30 @@ try {
 </html>';
         exit;
     }
+
+    // Ablaufdatum prüfen
+    if (!empty($qr['ablaufdatum']) && $qr['ablaufdatum'] < date('Y-m-d')) {
+        http_response_code(410);
+        echo '<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code abgelaufen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
+        <svg class="w-16 h-16 text-orange-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">QR Code abgelaufen</h1>
+        <p class="text-gray-600">Dieser QR Code ist nicht mehr gültig.</p>
+    </div>
+</body>
+</html>';
+        exit;
+    }
     
     // Scan tracken
     $stmt = $db->prepare("INSERT INTO qr_scans (qr_code_id, ip_address, user_agent) VALUES (?, ?, ?)");
