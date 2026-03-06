@@ -1,6 +1,13 @@
 <?php
 require_once '../config.php';
 
+// Setup nur mit gültigem Token zugänglich (SETUP_TOKEN in .env setzen)
+$setupToken = $_ENV['SETUP_TOKEN'] ?? '';
+if ($setupToken === '' || ($_GET['token'] ?? '') !== $setupToken) {
+    http_response_code(404);
+    exit('Not found.');
+}
+
 // Wenn bereits ein User existiert, zum Login weiterleiten
 if (!needsSetup()) {
     header('Location: login.php');
