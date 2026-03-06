@@ -10,3 +10,8 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Node (nur zum Bauen der Browser-Bundles verwendet)
+node_modules/
+package.json
+package-lock.json
