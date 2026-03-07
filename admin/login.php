@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="inline-block mb-4">
                 <img src="../Icon-teil-es.png" alt="teil-es Logo" class="w-16 h-16 object-contain">
             </div>
-            <h1 class="text-3xl font-bold text-gray-800">QR Code Manager</h1>
+            <h1 class="text-3xl font-bold text-gray-800">teil-es.de</h1>
             <p class="text-gray-600 mt-2">Bitte anmelden um fortzufahren</p>
         </div>
         
